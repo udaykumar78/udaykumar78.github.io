@@ -42,5 +42,60 @@ int main()
         }
      }
      }   
+
+
+
+4.potentiometer
+
+
+#include "mbed.h"
+AnalogIn pot(A0);
+DigitalOut rled(PTA12);
+int main() 
+{
+ float store = 0.0; 
+ while(1) 
+ {
+ store = 3.3*pot.read();
+ if(store > 1.65)
+ {
+ rled = 0;
+ }
+ 
+ else
+ {
+ rled = 1; 
+ }
+ }
+}
+
+
+Var 
+
+
+Program:
+#include "mbed.h"
+AnalogIn pot(A0);
+AnalogIn ldr(A1);
+AnalogIn tmr(A2);
+Serial pc(USBTX,USBRX);
+int main() 
+{
+ float value,value1,value2;
+ int data,data1,data2;
+ while(1) 
+ {
+ value = 3.3*pot.read();
+ value1 = 3.3*ldr.read();
+ value2 = 3.3*tmr.read();
+ data = 100*value;
+ data1 = 100*value1;
+ data2 = 100*value2;
+ 
+ //pc.printf("\r\nValue = %.2f \n\r",value);
+ pc.printf("$%d %d %d;",data,data1,data2); 
+ wait(0.5);
+ }}
+
      </pre>
 </html>
