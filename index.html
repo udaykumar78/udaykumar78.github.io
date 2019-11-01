@@ -1,3 +1,43 @@
 <html>
   1. variable resistor acquisition usin vsp.
+  
+  2.air mouse
+  #include "mbed.h"
+#include "MMA8451Q.h"
+#include "TSISensor.h"
+#include "USBMouse.h"
+#define MMA8451Q_I2C_ADDRESS (0X1d<<1)
+MMA8451Q acc(PTE25,PTE24,MMA8451Q_I2C_ADDRESS); 
+TSISensor tsi;
+USBMouse mouse;
+int main()
+{
+    float click=0;
+    int sens=5;
+    int acc_x=0;
+    int acc_y=0;
+    while(1)
+    {
+    acc_y=sens*acc.getAccX();
+    acc_x=sens*acc.getAccY();
+    mouse.move(acc_x,acc_y);
+    click=tsi.readPercentage();
+    if(click>0.0&&click<=0.4)
+    {
+        mouse.press(MOUSE_RIGHT);
+        }
+        else
+         {
+        mouse.release(MOUSE_RIGHT);
+        }
+        if(click>0.6)
+         {
+        mouse.press(MOUSE_LEFT);
+        }
+        else
+         {
+        mouse.press(MOUSE_LEFT);
+        }
+     }
+     }   
 </html>
