@@ -1,101 +1,26 @@
 <html>
-<pre>
-  1. variable resistor
-acquisition usin vsp.
-  
-  2.air mouse
-  #include "mbed.h"
-#include "MMA8451Q.h"
-#include "TSISensor.h"
-#include "USBMouse.h"
-#define MMA8451Q_I2C_ADDRESS (0X1d<<1)
-MMA8451Q acc(PTE25,PTE24,MMA8451Q_I2C_ADDRESS); 
-TSISensor tsi;
-USBMouse mouse;
-int main()
-{
-    float click=0;
-    int sens=5;
-    int acc_x=0;
-    int acc_y=0;
-    while(1)
-    {
-    acc_y=sens*acc.getAccX();
-    acc_x=sens*acc.getAccY();
-    mouse.move(acc_x,acc_y);
-    click=tsi.readPercentage();
-    if(click>0.0&&click<=0.4)
-    {
-        mouse.press(MOUSE_RIGHT);
-        }
-        else
-         {
-        mouse.release(MOUSE_RIGHT);
-        }
-        if(click>0.6)
-         {
-        mouse.press(MOUSE_LEFT);
-        }
-        else
-         {
-        mouse.press(MOUSE_LEFT);
-        }
-     }
-     }   
 
+<head>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <title>Sign in</title>
+</head>
 
+<body>
+  <div class="main">
+    <p class="sign" align="center">Sign in</p>
+    <form class="form1">
+      <input class="un " type="text" align="center" placeholder="Username">
+      <input class="pass" type="password" align="center" placeholder="Password">
+      <a class="submit" align="center">Sign in</a>
+      <p class="forgot" align="center"><a href="#">Forgot Password?</p>
+            
+                
+    </div>
+     
+</body>
 
-4.potentiometer
-
-
-#include "mbed.h"
-AnalogIn pot(A0);
-DigitalOut rled(PTA12);
-int main() 
-{
- float store = 0.0; 
- while(1) 
- {
- store = 3.3*pot.read();
- if(store > 1.65)
- {
- rled = 0;
- }
- 
- else
- {
- rled = 1; 
- }
- }
-}
-
-
-Var 
-
-
-Program:
-#include "mbed.h"
-AnalogIn pot(A0);
-AnalogIn ldr(A1);
-AnalogIn tmr(A2);
-Serial pc(USBTX,USBRX);
-int main() 
-{
- float value,value1,value2;
- int data,data1,data2;
- while(1) 
- {
- value = 3.3*pot.read();
- value1 = 3.3*ldr.read();
- value2 = 3.3*tmr.read();
- data = 100*value;
- data1 = 100*value1;
- data2 = 100*value2;
- 
- //pc.printf("\r\nValue = %.2f \n\r",value);
- pc.printf("$%d %d %d;",data,data1,data2); 
- wait(0.5);
- }}
-
-     </pre>
 </html>
+
